@@ -5,9 +5,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-    - POSTGRES_USER=postgres
-    - POSTGRES_PASSWORD=password
-    - POSTGRES_DB=hw_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: hw_db
     
   dotnet_main:
     image: dotnet.homeworks.mainproject
