@@ -17,12 +17,24 @@ services:
     build:
       dockerfile: Dotnet.Homeworks.MainProject/Dockerfile
     environment:
+      RabbitMqConfig__Username: someuser
+      RabbitMqConfig__Password: somepass
+      RabbitMqConfig__Hostname: dotnet_rabbitmq
+      RabbitMqConfig__Port: 5672
       ConnectionStrings__Default: "Host=dotnet_postgres;Port=5432;Username=postgres;Password=password;Database=hw_db"
     depends_on:
       - dotnet_postgres
+      - dotnet_rabbitmq
     
-#  dotnet_rabbitmq:
-#    image: rabbitmq:3-alpine
+  dotnet_rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: dotnet_rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: someuser
+      RABBITMQ_DEFAULT_PASS: somepass
 
 #  dotnet_minio:
 #    image: minio/minio:latest
@@ -33,8 +45,24 @@ services:
 #  dotnet_jaeger:
 #    image: jaegertracing/all-in-one:latest  
     
-#  dotnet_mailing:
-#    image: dotnet-web
+  dotnet_mailing:
+    image: dotnet.homeworks.mailing
+    container_name: Homework.Mailing
+    ports:
+      - "5000:5000"
+    build:
+      dockerfile: Dotnet.Homeworks.Mailing.API/Dockerfile
+    environment:
+      RabbitMqConfig__Username: someuser
+      RabbitMqConfig__Password: somepass
+      RabbitMqConfig__Hostname: dotnet_rabbitmq
+      RabbitMqConfig__Port: 5672
+      EmailConfig__Email: someworkmail@mail.ru
+      EmailConfig__Host: somehost
+      EmailConfig__Port: 567
+      EmailConfig__Password: someemailpass
+    depends_on:
+      - dotnet_rabbitmq
     
 #  dotnet_storage:
 #    image: dotnet-web

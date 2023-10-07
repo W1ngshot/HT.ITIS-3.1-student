@@ -1,3 +1,5 @@
-﻿namespace Dotnet.Homeworks.MainProject.Dto;
+﻿using System.ComponentModel.DataAnnotations;
 
-public record RegisterUserDto(string Name, string Email);
+namespace Dotnet.Homeworks.MainProject.Dto;
+
+public record RegisterUserDto([Required] string Name, [EmailAddress] [Required] string Email);
