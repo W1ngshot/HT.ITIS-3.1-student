@@ -12,7 +12,6 @@ public static class ServiceCollectionExtensions
 
         services.AddMassTransit(options =>
         {
-            Console.WriteLine($"amqp://{rabbitConfig.Username}:{rabbitConfig.Password}@{rabbitConfig.Hostname}:{rabbitConfig.Port}");
             var host =
                 $"amqp://{rabbitConfig.Username}:{rabbitConfig.Password}@{rabbitConfig.Hostname}:{rabbitConfig.Port}";
             options.UsingRabbitMq((context, configurator) =>

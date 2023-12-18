@@ -33,4 +33,9 @@ public class ProductRepositoryMock : IProductRepository
         _products.TryAdd(product.Id, product);
         return Task.FromResult(product.Id);
     }
+
+    public Task<Product?> GetProductByIdOrDefaultAsync(Guid id, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }

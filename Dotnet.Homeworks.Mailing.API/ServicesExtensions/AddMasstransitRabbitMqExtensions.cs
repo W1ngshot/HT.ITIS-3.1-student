@@ -16,6 +16,7 @@ public static class AddMasstransitRabbitMqExtensions
         {
             var host =
                 $"amqp://{rabbitConfig.Username}:{rabbitConfig.Password}@{rabbitConfig.Hostname}:{rabbitConfig.Port}";
+          
             options.UsingRabbitMq((context, configurator) =>
             {
                 configurator.ConfigureEndpoints(context);

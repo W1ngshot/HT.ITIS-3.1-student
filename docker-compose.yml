@@ -2,6 +2,7 @@ version: '3.8'
 services:
   dotnet_postgres:
     image: postgres:alpine
+    container_name: dotnet_postgres
     ports:
       - "5432:5432"
     environment:
